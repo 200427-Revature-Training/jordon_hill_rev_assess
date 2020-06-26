@@ -2,33 +2,33 @@
 Value: 30 points*/
 CREATE TABLE category (
 	category_id serial PRIMARY KEY,
-	"name" varchar(50)
+	"name" varchar(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE flashcard (
 	flashcard_id serial PRIMARY KEY,
-	question varchar(250),
-	answer varchar(250),
+	question varchar(250) UNIQUE NOT NULL,
+	answer varchar(250) NOT NULL,
 	category_id int REFERENCES category (category_id)
 );
 
 CREATE TABLE user_role (
 	role_id serial PRIMARY KEY,
-	"name" varchar(50)
+	"name" varchar(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE app_user (
 	user_id serial PRIMARY KEY,
-	username varchar(50),
-	"password" varchar(70), /* allowing room for hashed password */
-	first_name varchar(50),
-	last_name varchar(50),
+	username varchar(50) UNIQUE NOT NULL,
+	"password" varchar(70) NOT NULL, /* allowing room for hashed password */
+	first_name varchar(50) NOT NULL,
+	last_name varchar(50) NOT NULL,
 	role_id int REFERENCES user_role (role_id)
 );
 
 CREATE TABLE study_set (
 	study_set_id serial PRIMARY KEY,
-	"name" varchar(50),
+	"name" varchar(50) UNIQUE NOT NULL,
 	owner_id int REFERENCES app_user (user_id)
 );
 
